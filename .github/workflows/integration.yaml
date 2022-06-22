@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run tests on preview
-        run: npm install
+      - uses: actions/setup-node@v2
+      # - name: Run tests on preview
+      #   run: npm install
       - name: Run tests on preview
         run: npm run test
