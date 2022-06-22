@@ -1,0 +1,23 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
+        with:
+          aws-access-key-id: AKIA2YAN7NKOXFVWQA4N
+          aws-secret-access-key: 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
+          aws-region: us-east-1
