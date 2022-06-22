@@ -21,3 +21,7 @@ jobs:
           aws-access-key-id: AKIA2YAN7NKOXFVWQA4N
           aws-secret-access-key: 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
           aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@aaf69d68aa3fb14c1d5a6be9ac61fe15b48453a2
