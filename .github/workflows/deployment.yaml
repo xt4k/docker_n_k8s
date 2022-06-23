@@ -58,7 +58,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-          IMAGER: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          IMAGER: ${{ steps.login-ecr.outputs.registry }}/${{ steps.login-ecr.outputs.registry }}:${{ github.sha }}
           IMAGE: ${{ steps.build-image.outputs.image }}
         with:
           task-definition: task-definition.json
