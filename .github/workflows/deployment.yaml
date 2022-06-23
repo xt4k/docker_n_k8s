@@ -40,12 +40,11 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j7x6z4b9
+          docker build -t org .
+          docker tag org:latest public.ecr.aws/j7x6z4b9/org:latest
+          docker push public.ecr.aws/j7x6z4b9/org:latest
+          echo "::set-output name=image::public.ecr.aws/j7x6z4b9/org:latest"
 
     #   - name: Download task definition
     #     run: |
