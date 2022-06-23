@@ -11,7 +11,7 @@ env:
   ECS_SERVICE: EC2
   ECS_CLUSTER: nestappcluster # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ../../.aws/task-definition.json
-  CONTAINER_NAME: nestapp
+  CONTAINER_NAME: thebestapp
 
 jobs:
   deploy:
@@ -49,7 +49,7 @@ jobs:
 
       - name: Download task definition
         run: |
-          aws ecs describe-task-definition --task-definition thebestapp:2 \
+          aws ecs describe-task-definition --task-definition thebestapp \
           --query taskDefinition > task-definition.json
 
       - name: Fill in the new image ID in the Amazon ECS task definition
