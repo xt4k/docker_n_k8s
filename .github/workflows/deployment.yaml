@@ -43,29 +43,33 @@ jobs:
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j7x6z4b9
           docker build -t org .
           docker tag org:latest public.ecr.aws/j7x6z4b9/org:latest
-          docker push public.ecr.aws/j7x6z4b9/org::latest
-          echo "::set-output name=image::public.ecr.aws/j7x6z4b9/org::latest"
+          docker push public.ecr.aws/j7x6z4b9/org:latest
+          echo "::set-output name=image::public.ecr.aws/j7x6z4b9/org:latest"
 
-      - name: Download task definition
-        run: |
-          aws ecs describe-task-definition --task-definition thebestapp \
-          --query taskDefinition > task-definition.json
+    #   - name: Download task definition
+    #     run: |
+    #       aws ecs describe-task-definition --task-definition thebestapp \
+    #       --query taskDefinition > task-definition.json
 
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: ${{ env.CONTAINER_NAME }}
-          image: $IMAGE
+    #   - name: Fill in the new image ID in the Amazon ECS task definition
+    #     id: task-def
+    #     uses: aws-actions/amazon-ecs-render-task-definition@v1
+    #     env:
+    #       ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #       IMAGE_TAG: ${{ github.sha }}
+    #       IMAGE: ${{ steps.build-image.outputs.image }}
+    #     with:
+    #       task-definition: task-definition.json
+    #       container-name: ${{ env.CONTAINER_NAME }}
+    #       image: $IMAGE
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+    #   # - name: Setup tmate session
+    #   #   uses: mxschmitt/action-tmate@v3
 
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          service: helloworldservice
-          cluster: helloworld
-          wait-for-service-stability: true
+    #   - name: Deploy Amazon ECS task definition
+    #     uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+    #     with:
+    #       task-definition: task-definition.json
+    #       service: ${{ env.ECS_SERVICE }}
+    #       cluster: ${{ env.ECS_CLUSTER }}
+    #       wait-for-service-stability: true
