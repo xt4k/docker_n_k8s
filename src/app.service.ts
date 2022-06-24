@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'IS IT A CPU THING!!!!!!';
+    return 'Is this goona work';
   }
 }
 // containerDefinitions.image
