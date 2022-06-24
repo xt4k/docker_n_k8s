@@ -41,7 +41,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j7x6z4b9
-          docker build -t org .
+          docker build -t org:$IMAGE_TAG .
           docker tag org:$IMAGE_TAG public.ecr.aws/j7x6z4b9/org:$IMAGE_TAG
           docker push public.ecr.aws/j7x6z4b9/org:$IMAGE_TAG
           echo "::set-output name=image::public.ecr.aws/j7x6z4b9/org:$IMAGE_TAG"
