@@ -53,7 +53,7 @@ jobs:
         uses: jossef/action-set-json-field@v2
         with:
           file: task-definition.json
-          field: containerDefinitions.image
+          field: containerDefinitions[0].image
           value: ${{ steps.build-image.outputs.image }}
 
       - name: Setup tmate session
