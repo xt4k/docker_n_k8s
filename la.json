@@ -1,0 +1,32 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:738763696797:task-definition/helloworldtask:1",
+  "containerDefinitions": [
+    {
+      "name": "helloworldcontainer",
+      "image": "public.ecr.aws/j7x6z4b9/org:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": []
+    }
+  ],
+  "family": "helloworldtask",
+  "revision": 1,
+  "volumes": [],
+  "status": "ACTIVE",
+  "placementConstraints": [],
+  "compatibilities": ["EXTERNAL", "EC2"],
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "1024",
+  "memory": "100",
+  "registeredAt": "2022-06-24T00:03:46.147000+00:00",
+  "registeredBy": "arn:aws:iam::738763696797:root"
+}
