@@ -9,8 +9,7 @@ env:
   AWS_REGION: us-east-1 # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: org # set this to your Amazon ECR repository name
   ECS_SERVICE: helloworldservice
-  ECS_CLUSTER: helloworld # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: ../../.aws/task-definition.json
+  ECS_CLUSTER: helloworldcluster # set this to your Amazon ECS cluster name
   CONTAINER_NAME: helloworldcontainer
 
 jobs:
@@ -37,7 +36,6 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j7x6z4b9
