@@ -8,8 +8,8 @@ on:
 env:
   AWS_REGION: us-east-1 # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: org # set this to your Amazon ECR repository name
-  ECS_SERVICE: EC2
-  ECS_CLUSTER: nestappcluster # set this to your Amazon ECS cluster name
+  ECS_SERVICE: helloworldservice
+  ECS_CLUSTER: helloworld # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ../../.aws/task-definition.json
   CONTAINER_NAME: helloworldcontainer
 
@@ -62,16 +62,13 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: $IMAGE
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
-    #     - name: Setup tmate session
-    #       uses: mxschmitt/action-tmate@v3
-
-    #   - name: Deploy Amazon ECS task definition
-    #     uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-    #     with:
-    #       task-definition: task-definition.json
-    #       service: ${{ env.ECS_SERVICE }}
-    #       cluster: ${{ env.ECS_CLUSTER }}
-    #       wait-for-service-stability: true
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
