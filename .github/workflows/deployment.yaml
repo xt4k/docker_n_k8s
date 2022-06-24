@@ -84,4 +84,4 @@ jobs:
 
       - name: Force redeploy
         run: |
-          aws ecs update-service --cluster helloworldcluster --service helloworldservice --force-new-deployment
+          aws ecs update-service --cluster helloworldcluster --service helloworldservice --region us-east-1 --force-new-deployment
