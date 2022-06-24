@@ -42,9 +42,9 @@ jobs:
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j7x6z4b9
           docker build -t org .
-          docker tag org:$IMAGE_TAG public.ecr.aws/j7x6z4b9/org:$IMAGE_TAG
-          docker push public.ecr.aws/j7x6z4b9/org:$IMAGE_TAG
-          echo "::set-output name=image::public.ecr.aws/j7x6z4b9/org:$IMAGE_TAG"
+          docker tag org:latest public.ecr.aws/j7x6z4b9/org:latest
+          docker push public.ecr.aws/j7x6z4b9/org::latest
+          echo "::set-output name=image::public.ecr.aws/j7x6z4b9/org::latest"
 
       - name: Download task definition
         run: |
@@ -62,10 +62,10 @@ jobs:
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
 
-    #   - name: Deploy Amazon ECS task definition
-    #     uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-    #     with:
-    #       task-definition: task-definition.json
-    #       service: ${{ env.ECS_SERVICE }}
-    #       cluster: ${{ env.ECS_CLUSTER }}
-    #       wait-for-service-stability: true
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          service: helloworldservice
+          cluster: helloworld
+          wait-for-service-stability: true
