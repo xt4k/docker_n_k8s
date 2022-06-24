@@ -49,12 +49,20 @@ jobs:
           aws ecs describe-task-definition --task-definition helloworldtask \
           --query taskDefinition > task-definition.json
 
-      - name: Update package.json version
-        uses: jossef/action-set-json-field@v2
-        with:
-          file: task-definition.json
-          field: containerDefinitions[0].image
-          value: ${{ steps.build-image.outputs.image }}
+      # - name: Update package.json version
+      #   uses: jossef/action-set-json-field@v2
+      #   with:
+      #     file: task-definition.json
+      #     field: containerDefinitions[0].image
+      #     value: ${{ steps.build-image.outputs.image }}
+      - name: read config.json
+        run: cat task-definition.json
+
+      - name: Update config.json
+        run: echo "`jq '.containerDefinitions[0].image="${{ steps.build-image.outputs.image }}"' task-definition.json`" > task-definition.json
+
+      - name: read config.json
+        run: cat task-definition.json
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
