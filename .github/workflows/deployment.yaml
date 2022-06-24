@@ -81,3 +81,7 @@ jobs:
           task-definition: task-definition.json
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
+
+      - name: Force redeploy
+        run: |
+          aws ecs update-service --cluster helloworldcluster --service helloworldservice --force-new-deployment
