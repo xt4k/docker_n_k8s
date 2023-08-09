@@ -87,4 +87,4 @@ jobs:
           wait-for-service-stability: true
       - name: Force redeploy
         run: |
-          aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --region ${{ secrets.AWS_REGION }} --force-new-deployment
+          aws ecs update-service --cluster hello-world-cluster8-12 --service helloworld-service-final --region us-east-1 --force-new-deployment          
