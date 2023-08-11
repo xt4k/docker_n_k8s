@@ -65,7 +65,7 @@ jobs:
         run: cat task-definition.json
       
       - name: Update task-definition.json
-        run: echo "`jq '.containerDefinitions[0].image="${{ steps.build-image.outputs.image}}"' task-definition.json`" > task-definition.json
+        run: echo "`jq '.containerDefinitions[0].image="${{ steps.build-image.outputs.image }}"' task-definition.json`" > task-definition.json
 
       - name: Read updated task-definition.json
         run: cat task-definition.json
@@ -78,14 +78,14 @@ jobs:
       #     container-name: ${{ env.CONTAINER_NAME }}
       #     image: ${{ steps.build-image.outputs.image }}
 
-      - name: Deploy Amazon ECS task definition
-      
+      - name: Deploy Amazon ECS task definition      
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: task-definition.json
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
-      - name: Force redeploy
-        run: |
-          aws ecs update-service --cluster hello-world-cluster8-12 --service helloworld-service-final --region us-east-1 --force-new-deployment          
+
+      # - name: Force redeploy
+      #   run: |
+      #     aws ecs update-service --cluster hello-world-cluster8-12 --service helloworld-service-final --region us-east-1 --force-new-deployment          
